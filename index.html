@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>王诗情的作品�?/title>
+  <title>INKVISION | 平面设计作品集</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
@@ -123,83 +122,40 @@
     .scroll-to-top-btn:hover {
       opacity: 0.8; /* Reduce opacity on hover */
     }
-
-    .nav-links a:hover {
-      color: var(--color-accent);
-    }
-
-    .nav-links .active {
-      font-size: 24px;
-      color: var(--color-accent);
-    }
-
-    .contact-btn {
-      border: 1px dashed var(--color-accent);
-      color: var(--color-accent);
-      background: none;
-      padding: 8px 24px;
-      border-radius: 9999px;
-      font-size: 18px;
-    }
-
-    .back-to-top {
-      display: block;
-      width: 166px;
-      margin: 40px auto;
-      padding: 8px 24px;
-      border: 1px dashed var(--color-accent);
-      color: var(--color-accent);
-      background: none;
-      border-radius: 9999px;
-      font-size: 24px;
-    }
-
-    :root {
-      --color-background: #1A1A1A;
-      --color-nav: #2A2A2A;
-      --color-accent: #39FF14;
-      --color-text: #FFFFFF;
-      --color-text-secondary: #EFEFEF;
-      --color-card-bg: #2A2A2A;
-    }
-
-    .view-details {
-      display: none;
-    }
   </style>
 </head>
 
 <body class="bg-dark text-light min-h-screen font-rounded">
-  <!-- 导航�?-->
+  <!-- 导航栏 -->
   <header class="fixed w-full z-50 transition-all duration-500 ease-expo-out bg-gray-custom" id="navbar">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <a href="#" class="text-2xl font-bold text-primary tracking-tight flex items-center space-x-2">
         <span class="fa fa-paint-brush transform -rotate-12"></span>
-        <span>王诗�?/span>
+        <span>王诗情</span>
       </a>
       
       <!-- 桌面导航 -->
       <nav class="hidden md:flex items-center space-x-8">
         <a href="#home" class="text-light hover:text-primary transition-colors duration-300">首页</a>
         <a href="#works" class="text-light hover:text-primary transition-colors duration-300">作品</a>
-        <a href="#about" class="text-light hover:text-primary transition-colors duration-300">关于�?/a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300">关于我</a>
         <a href="#contact" class="bg-transparent rounded-full px-6 py-2 border border-primary text-primary hover:bg-primary hover:text-dark transition-all duration-500 ease-expo-out">
           与我联系
         </a>
       </nav>
       
-      <!-- 移动端菜单按�?-->
+      <!-- 移动端菜单按钮 -->
       <button class="md:hidden text-light focus:outline-none" id="menu-toggle">
         <span class="fa fa-bars text-2xl"></span>
       </button>
     </div>
     
-    <!-- 移动端导航菜�?-->
+    <!-- 移动端导航菜单 -->
     <div class="md:hidden bg-gray-custom absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 ease-expo-out invisible" id="mobile-menu">
       <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
         <a href="#home" class="text-light hover:text-primary transition-colors duration-300 py-2">首页</a>
         <a href="#works" class="text-light hover:text-primary transition-colors duration-300 py-2">作品</a>
-        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 py-2">关于�?/a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 py-2">关于我</a>
         <a href="#contact" class="bg-transparent rounded-full px-6 py-2 border border-primary text-primary hover:bg-primary hover:text-dark transition-all duration-500 ease-expo-out text-center">
           与我联系
         </a>
@@ -207,13 +163,13 @@
     </div>
   </header>
 
-  <!-- 英雄�?-->
+  <!-- 英雄区 -->
   <section id="home" class="relative min-h-screen flex items-center justify-center clip-path-slant overflow-hidden bg-black">
     
     <div class="container mx-auto px-4 py-24 relative z-20 flex flex-col items-center justify-center min-h-screen">
       <div class="max-w-3xl w-full">
         <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight mb-6 text-center">
-          设计桥见生活<br><span class="whitespace-nowrap">视觉传递情�?/span>
+          设计桥见生活<br><span class="whitespace-nowrap">视觉传递情感</span>
        
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
@@ -229,15 +185,15 @@
     </div>
   </section>
 
-  <!-- 作品展示�?-->
+  <!-- 作品展示区 -->
   <section id="works" class="py-24 bg-gradient-custom">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">精�?span class="text-primary">作品</span></h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">探索我的最新设计作品，每一件都融合了创意与视觉 ，为客户带来独特的视觉体�?/p>
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">精选<span class="text-primary">作品</span></h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">探索我的最新设计作品，每一件都融合了创意与视觉 ，为客户带来独特的视觉体验</p>
       </div>
       
-      <!-- 分类筛�?-->
+      <!-- 分类筛选 -->
       <div class="flex flex-wrap justify-center gap-3 mb-12">
         <button class="filter-btn active px-6 py-2 rounded-full bg-primary text-dark font-medium transition-all duration-300 ease-expo-out">
           全部作品
@@ -246,7 +202,8 @@
           平面设计
         </button>
         <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
-          动态视觉设�?        </button>
+          动态视觉设计
+        </button>
         <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
           摄影摄像动画作业
         </button>
@@ -263,33 +220,33 @@
       
       <!-- 作品网格 -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- 作品�?1 -->
+        <!-- 作品项 1 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <div class="image-container">
-            <a href="index.html" class="block">
+            <a href="index2.html" class="block">
               <img src="image/2.2.png" alt="作品图片" class="w-full h-80 object-cover">
             </a>
           </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
-            <a href="index.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
               查看详细 <span class="fa fa-arrow-right ml-2"></span>
             </a>
           </div>
         </div>
-        <!-- 作品�?2 -->
+        <!-- 作品项 2 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <a href="index3.html">
-            <img src="image/节奏.png" alt="动态视觉设�? class="w-full h-96 object-cover">
+            <img src="image/节奏.png" alt="动态视觉设计" class="w-full h-96 object-cover">
           </a>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
-            <h3 class="text-xl font-bold text-white mb-2">动态视觉设�?/h3>
+            <h3 class="text-xl font-bold text-white mb-2">动态视觉设计</h3>
             <a href="index3.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
               查看详细 <span class="fa fa-arrow-right ml-2"></span>
             </a>
           </div>
         </div>
-        <!-- 作品�?3 -->
+        <!-- 作品项 3 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <a href="index4.html">
             <img src="image/摄影.png" alt="摄影摄像动画作品" class="w-full h-80 object-cover">
@@ -301,7 +258,7 @@
             </a>
           </div>
         </div>
-        <!-- 作品�?4 -->
+        <!-- 作品项 4 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <a href="processing.html">
             <img src="image/编程作业1.png" alt="动画编程作品" class="w-full h-96 object-cover">
@@ -313,7 +270,7 @@
             </a>
           </div>
         </div>
-        <!-- 作品�?5 -->
+        <!-- 作品项 5 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <a href="3DmayaPicture.html">
             <img src="image/建模1.png" alt="3D建模作品" class="w-full h-80 object-cover">
@@ -325,7 +282,7 @@
             </a>
           </div>
         </div>
-        <!-- 作品�?6 -->
+        <!-- 作品项 6 -->
         <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
           <a href="IP design.html">
             <img src="image/海报3.png" alt="IP设计及衍生品" class="w-full h-96 object-cover">
@@ -347,14 +304,14 @@
     </div>
   </section>
 
-  <!-- 服务介绍�?-->
+  <!-- 服务介绍区 -->
   <section id="about" class="py-24 bg-dark">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">关于<span class="text-primary">�?/span></h2>
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">关于<span class="text-primary">我</span></h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-        <!-- 左侧圆形照片�?-->
+        <!-- 左侧圆形照片区 -->
         <div class="flex justify-center items-center h-full">
           <div class="w-80 h-80 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center border-4" style="border-color: #7DFF15;">
             <img src="image/1.jpg" alt="个人照片" class="object-cover w-full h-full" />
@@ -366,7 +323,7 @@
           <div class="mb-8">
             <div class="mb-6">
               <div class="text-2xl font-bold text-white mb-2">姓名</div>
-              <div class="text-gray-400">王诗�?/div>
+              <div class="text-gray-400">王诗情</div>
             </div>
             <div class="mb-6">
               <div class="text-2xl font-bold text-white mb-2">专业背景</div>
@@ -378,7 +335,7 @@
             </div>
             <div class="mb-2">
               <div class="text-2xl font-bold text-white mb-2">个人特质</div>
-              <div class="text-gray-400">善于沟通，注重团队协作，具有强烈的责任心和创新精神，能够快速理解并满足客户需求�?/div>
+              <div class="text-gray-400">善于沟通，注重团队协作，具有强烈的责任心和创新精神，能够快速理解并满足客户需求。</div>
             </div>
           </div>
         </div>
@@ -386,7 +343,7 @@
     </div>
   </section>
 
-  <!-- 联系�?-->
+  <!-- 联系区 -->
   <section id="contact" class="py-24 bg-gradient-custom relative overflow-hidden">
     <div class="absolute top-0 right-0 w-1/2 h-full opacity-10">
       <div class="absolute inset-0 bg-primary/20 filter blur-3xl"></div>
@@ -423,8 +380,8 @@
                 <span class="fa fa-map-marker text-primary"></span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold mb-1">工作�?/h3>
-                <p class="text-gray-400">北京市房山良乡北京工商大�?/p>
+                <h3 class="text-lg font-semibold mb-1">工作室</h3>
+                <p class="text-gray-400">北京市房山良乡北京工商大学</p>
               </div>
             </div>
           </div>
@@ -449,7 +406,7 @@
         </div>
         
         <div class="bg-gray-custom p-8 rounded-2xl">
-          <h3 class="text-2xl font-bold mb-6">发送消�?/h3>
+          <h3 class="text-2xl font-bold mb-6">发送消息</h3>
           <form>
             <div class="mb-6">
               <label for="name" class="block text-sm font-medium text-gray-300 mb-2">姓名</label>
@@ -473,12 +430,13 @@
             </div>
             
             <div class="mb-6">
-              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">需求描�?/label>
-              <textarea id="message" rows="4" class="w-full px-4 py-3 bg-dark border border-gray-700 rounded-lg text-light form-focus transition-all duration-300 ease-expo-out" placeholder="请详细描述您的需�?.."></textarea>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">需求描述</label>
+              <textarea id="message" rows="4" class="w-full px-4 py-3 bg-dark border border-gray-700 rounded-lg text-light form-focus transition-all duration-300 ease-expo-out" placeholder="请详细描述您的需求..."></textarea>
             </div>
             
             <button type="submit" class="w-full bg-primary text-dark font-medium py-3 px-6 rounded-lg hover:bg-secondary transition-all duration-500 ease-expo-out shadow-lg shadow-primary/20">
-              发送消�?            </button>
+              发送消息
+            </button>
           </form>
         </div>
       </div>
@@ -492,17 +450,17 @@
         <div>
           <a href="#" class="text-2xl font-bold text-primary tracking-tight flex items-center space-x-2 mb-6">
             <span class="fa fa-paint-brush transform -rotate-12"></span>
-            <span>王诗�?/span>
+            <span>王诗情</span>
           </a>
         </div>
         
         <div>
-          <h4 class="text-lg font-semibold mb-6">快速链�?/h4>
+          <h4 class="text-lg font-semibold mb-6">快速链接</h4>
           <ul class="space-y-3">
             <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors duration-300">首页</a></li>
             <li><a href="#works" class="text-gray-400 hover:text-primary transition-colors duration-300">作品</a></li>
-            <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300">关于�?/a></li>
-            <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">关于�?/a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300">关于我</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">关于我</a></li>
           </ul>
         </div>
         
@@ -510,7 +468,7 @@
           <h4 class="text-lg font-semibold mb-6">服务</h4>
           <ul class="grid grid-cols-2 gap-x-8 gap-y-3">
             <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">平面设计</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">动态视觉设�?/a></li>
+            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">动态视觉设计</a></li>
             <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">摄影摄像动画作业</a></li>
             <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">动画编程作品</a></li>
             <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">3D建模作品</a></li>
@@ -531,14 +489,14 @@
             </li>
             <li class="flex items-start">
               <span class="fa fa-map-marker text-primary mr-3 mt-1"></span>
-              <span class="text-gray-400">北京市房山良乡北京工商大�?/span>
+              <span class="text-gray-400">北京市房山良乡北京工商大学</span>
             </li>
           </ul>
         </div>
       </div>
       
       <div class="pt-8 border-t border-gray-800 text-center text-gray-500">
-        <p>&copy; 2025 INKVISION. 保留所有权利�?/p>
+        <p>&copy; 2025 INKVISION. 保留所有权利。</p>
       </div>
     </div>
   </footer>
@@ -550,7 +508,8 @@
 
   <!-- 脚本 -->
   <script>
-    // 导航栏滚动效�?    const navbar = document.getElementById('navbar');
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
     const backToTop = document.getElementById('back-to-top');
     
     window.addEventListener('scroll', function() {
@@ -575,7 +534,8 @@
       }
     });
     
-    // 移动端菜单切�?    const menuToggle = document.getElementById('menu-toggle');
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     
     menuToggle.addEventListener('click', function() {
@@ -600,7 +560,8 @@
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-          // 关闭移动菜单（如果打开�?          if (!mobileMenu.classList.contains('invisible')) {
+          // 关闭移动菜单（如果打开）
+          if (!mobileMenu.classList.contains('invisible')) {
             mobileMenu.classList.add('invisible', 'opacity-0', '-translate-y-full');
             mobileMenu.classList.remove('opacity-100', 'translate-y-0');
             menuToggle.innerHTML = '<span class="fa fa-bars text-2xl"></span>';
@@ -622,27 +583,31 @@
       });
     });
     
-    // 作品筛选功�?    const filterButtons = document.querySelectorAll('.filter-btn');
+    // 作品筛选功能
+    const filterButtons = document.querySelectorAll('.filter-btn');
     
     filterButtons.forEach(button => {
       button.addEventListener('click', function() {
-        // 移除所有按钮的活动状�?        filterButtons.forEach(btn => {
+        // 移除所有按钮的活动状态
+        filterButtons.forEach(btn => {
           btn.classList.remove('active', 'bg-primary', 'text-dark');
           btn.classList.add('bg-gray-custom', 'text-light');
         });
         
-        // 添加当前按钮的活动状�?        this.classList.add('active', 'bg-primary', 'text-dark');
+        // 添加当前按钮的活动状态
+        this.classList.add('active', 'bg-primary', 'text-dark');
         this.classList.remove('bg-gray-custom', 'text-light');
         
         // 这里可以添加实际的筛选逻辑
         const category = this.textContent.trim();
-        console.log('筛选类�?', category);
-        // 实际项目中，这里可以根据类别筛选作�?      });
+        console.log('筛选类别:', category);
+        // 实际项目中，这里可以根据类别筛选作品
+      });
     });
   </script>
 
   <!-- Scroll-to-Top Button -->
-  <a href="#" class="scroll-to-top-btn">�?/a>
+  <a href="#" class="scroll-to-top-btn">↑</a>
 
   <script>
     const scrollToTopBtn = document.querySelector('.scroll-to-top-btn');
