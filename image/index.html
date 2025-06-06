@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>佛子庄乡农产品采摘地图 (Mapbox)</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .map-container {
+            width: 100%;
+            height: 100%; /* 使容器填充父级高度 */
+            margin: 0;
+            padding: 0;
+            /* border-radius: 15px; */ /* 可以选择保留或移除圆角和阴影 */
+            /* box-shadow: 0 4px 15px rgba(0,0,0,0.1); */
+            overflow: hidden; /* 防止地图溢出圆角和阴影区域 */
+        }
+        /* Mapbox 地图容器 */
+        #mapbox-map {
+            width: 100%;
+            height: 100%; /* 使地图填充容器高度 */
+        }
+        /* 自定义标记样式 */
+        .mapbox-marker-content {
+            text-align: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .mapbox-marker-label {
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+        /* 信息窗体样式 */
+        .mapboxgl-popup-content {
+             padding: 10px;
+             font-family: 'Microsoft YaHei', sans-serif;
+        }
+         .mapboxgl-popup-content b {
+             font-size: 14px;
+         }
+         .mapboxgl-popup-content i {
+             font-size: 12px;
+             color: #666;
+         }
+    </style>
+    <!-- 引入 Mapbox GL JS CSS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <!-- 引入 Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+</head>
+<body>
+    <div class="map-container">
+        <!-- Mapbox 地图容器 -->
+        <div id="mapbox-map"></div>
+    </div>
+
+    <script>
+        // Mapbox Access Token
+        mapboxgl.accessToken = 'pk.eyJ1IjoidHlpZ2pmZCIsImEiOiJjbWI4MDBmaTYwMG1xMmlwcjZocTVzamhzIn0.Jw6c2Uweyr_Rr2cf7eanpA';
+
+        // 初始化 Mapbox 地图
+        var map = new mapboxgl.Map({
+            container: 'mapbox-map', // 地图容器的 ID
+            style: 'mapbox://styles/tyigjfd/cmb9eg1w900t701qxcd5obmdh', // 您提供的 Mapbox 样式 URL
+            center: [115.844, 39.814], // 佛子庄乡人民政府大致经纬度作为中心点 (经度, 纬度)
+            zoom: 12 // 初始缩放级别，可以调整
+        });
+
+        // 标记点数据 (经度, 纬度, 名称, 图标, Slogan)
+        var markers = [
+            {name: '佛子庄西口公交站', position: [115.843, 39.813], icon: '🚌', slogan: '交通枢纽'},
+            {name: '磨盘柿子园', position: [115.850, 39.818], icon: '🍅', slogan: '秋日小灯笼，甜到心坎里~'},
+            {name: '葡萄种植园', position: [115.848, 39.815], icon: '🍇', slogan: '摘一串夏天的宝石✨'},
+            {name: '京白梨基地', position: [115.855, 39.820], icon: '🍐', slogan: '皇家贡品，脆嫩多汁！'},
+            {name: '佛子庄苹果园', position: [115.846, 39.817], icon: '🍎', slogan: '咔嚓一口，阳光味道☀️'},
+            {name: '燕山板栗林', position: [115.860, 39.825], icon: '🌰', slogan: '咧嘴笑的毛栗子+松鼠搬运'},
+            {name: '佛子庄乡人民政府', position: [115.844, 39.814], icon: '🏛️', slogan: '佛子庄乡政府'}
+        ];
+
+        // 地图加载完成后添加标记
+        map.on('load', function() {
+
+            // 尝试设置地图语言为中文
+            var languageLayerIds = [
+                'country-label', // 国家名称
+                'state-label', // 省份/州名称
+                'settlement-label', // 城市/城镇名称
+                'settlement-subdivision-label', // 城市下属区域名称
+                'locality-label', // 地名
+                'neighborhood-label', // 社区名称
+                'poi-label', // 兴趣点名称
+                'airport-label', // 机场名称
+                'transit-label', // 公共交通名称
+                'road-label', // 道路名称
+                'bridge-label', // 桥梁名称
+                'tunnel-label', // 隧道名称
+                'water-label' // 水系名称
+                // 您可能需要根据您的具体样式调整或添加更多图层ID
+            ];
+
+            languageLayerIds.forEach(function(layerId) {
+                var layer = map.getLayer(layerId);
+                if (layer) {
+                    // 检查图层是否有 text-field 属性
+                    if (layer.layout && layer.layout['text-field']) {
+                         // 设置优先显示中文名称
+                        map.setLayoutProperty(layerId, 'text-field', ['get', 'name_zh']);
+                    } else if (layer.type === 'symbol' && layer.layout && layer.layout['text-field']) {
+                         // 对于符号图层，尝试检查 name 属性并设置为中文
+                         map.setLayoutProperty(layerId, 'text-field', ['get', 'name_zh']);
+                    }
+                }
+            });
+
+            markers.forEach(function(markerInfo) {
+                // 创建一个 DOM 元素用于标记
+                var el = document.createElement('div');
+                el.className = 'mapbox-marker-content';
+                el.innerHTML = markerInfo.icon; // 只显示图标
+
+                // 添加鼠标悬停事件
+                el.addEventListener('mouseenter', function() {
+                    // 创建信息窗体
+                    var popup = new mapboxgl.Popup({
+                        offset: 25, // 偏移量
+                        closeButton: false, // 不显示关闭按钮
+                        closeOnClick: false // 不点击关闭
+                    })
+                        .setLngLat(markerInfo.position) // 设置位置
+                        .setHTML('<div>' +
+                                 '<b>' + markerInfo.name + '</b><br>' +
+                                 '经纬度: ' + markerInfo.position[0].toFixed(3) + ', ' + markerInfo.position[1].toFixed(3) + '<br>' + // 格式化经纬度显示
+                                 '<i>' + markerInfo.slogan + '</i>' +
+                                 '</div>')
+                        .addTo(map); // 添加到地图
+
+                    // 存储 popup 实例到 marker 元素上，方便在 mouseleave 中访问
+                    this._popup = popup;
+                });
+
+                el.addEventListener('mouseleave', function() {
+                    // 关闭信息窗体
+                    if (this._popup) {
+                        this._popup.remove();
+                        this._popup = null;
+                    }
+                });
+
+                // 在地图上创建标记
+                new mapboxgl.Marker(el)
+                    .setLngLat(markerInfo.position)
+                    .addTo(map);
+            });
+        });
+
+    </script>
+</body>
+</html> 
