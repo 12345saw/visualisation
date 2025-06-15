@@ -182,7 +182,6 @@
              display: flex;
              justify-content: center;
              align-items: center;
-             position: relative; /* Use relative positioning */
              margin: 0 auto; /* Center the image within the item if it's smaller */
         }
 
@@ -202,9 +201,8 @@
              position: static; /* Remove absolute positioning */
         }
 
-        /* Styles for the actual images and videos within items */
-        .work-image img,
-        .work-image video {
+        /* Styles for the actual images and videos within waterfall items */
+        .work-image img, .work-image video {
             width: 100%;
             height: 100%; /* Make image fill the padded container */
             object-fit: cover; /* Use cover to ensure images fill the space without distortion (might crop) */
@@ -220,12 +218,6 @@
             transform: scale(1.05);
         }
 
-        /* Hide text description elements */
-        .work-item .work-title,
-        .work-item .work-info {
-            display: none;
-        }
-
         /* Styles for the introductory text */
         .intro-text {
             max-width: 800px; /* Limit width for readability */
@@ -235,7 +227,7 @@
             font-size: 18px; /* Adjust font size as needed */
             color: var(--color-text-secondary); /* Use secondary text color */
         }
-
+        
         .back-to-top {
             display: block;
             width: 166px;
@@ -282,34 +274,34 @@
             opacity: 0.8; /* Reduce opacity on hover */
         }
 
+        /* Mouse Trail Effect CSS */
+        .mouse-trail-element {
+            position: absolute;
+            background-color: #7DFF15; /* Trail color */
+            border-radius: 50%;
+            opacity: 0.8;
+            transform: scale(1);
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            pointer-events: none;
+        }
+
         @media (max-width: 768px) {
-            .nav-container {
-                height: 60px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
             .two-column-container {
                 grid-template-columns: repeat(1, 1fr); /* One column on small screens */
                 gap: 10px;
                 margin-top: 108px; /* Adjust top margin */
                 padding: 0 10px;
             }
-
-             .waterfall-container {
+            .waterfall-container {
                 margin-top: 30px; /* Adjust top margin */
                 column-count: 2; /* 2 columns on small screens */
                 padding: 0 10px;
                 column-gap: 10px;
             }
-
             .work-item {
                 padding: 5px; /* Adjust padding for small screens */
                 margin-bottom: 10px;
             }
-
             /* Adjust image container for small screens if specific first row styles applied */
             .work-image {
                  height: 0; /* Keep height at 0 */
@@ -321,7 +313,6 @@
                  height: auto; /* Allow height to be determined by aspect ratio padding */
                  margin: 0; /* Remove margin added for centering */
             }
-
             /* Reset specific first row image styles on small screens */
              .two-column-container:nth-of-type(1) .work-image {
                 max-width: 100%; /* Ensure it's responsive on small screens */
@@ -332,7 +323,6 @@
                 margin: 0; /* Remove margin added for centering */
                 position: relative; /* Reapply relative positioning */
              }
-
             /* Reset specific second row image styles on small screens */
              .two-column-container:nth-of-type(2) .work-image {
                  max-width: 100%; /* Ensure it takes full width on small screens */
@@ -345,7 +335,6 @@
                  overflow: hidden; /* Reapply hidden overflow */
                  margin: 0 auto; /* Reapply margin for centering on small screens */
             }
-
             /* Adjust actual image styles for small screens */
              .work-image img, .work-image video {
                  position: absolute; /* Keep absolute positioning */
@@ -353,7 +342,6 @@
                  height: 100%;
                  object-fit: cover; /* Use cover on small screens */
             }
-
             /* Reset specific first row actual image styles on small screens */
              .two-column-container:nth-of-type(1) .work-image img {
                  position: absolute; /* Reapply absolute positioning */
@@ -361,7 +349,6 @@
                  height: 100%;
                  object-fit: cover; /* Use cover on small screens */
             }
-
              /* Reset specific second row actual image styles on small screens */
             .two-column-container:nth-of-type(2) .work-image img {
                  position: static; /* Allow height to be determined by content */
@@ -369,18 +356,15 @@
                  height: auto; /* Allow height to be determined by content */
                  object-fit: contain; /* Ensure content is contained */
             }
-
             /* Responsive adjustments for intro text */
             .intro-text {
                 font-size: 16px; /* Slightly smaller on mobile */
                 margin: 20px auto; /* Adjust margin */
                 padding: 0 10px; /* Adjust padding */
             }
-
             .work-title {
                 font-size: 24px;
             }
-
             .work-info {
                 font-size: 14px;
             }
@@ -388,19 +372,26 @@
     </style>
 </head>
 <body>
+    <div id="mouse-trail-container" style="pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;"></div>
+
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <svg viewBox="0 0 22 20">
-                    <path d="M11.9922 14.3359Q13.6719 14.0625 14.6484 12.6562L20.9375 2.89062Q21.3281 2.30469 21.25 1.64062Q21.1328 0.976562 20.6641 0.507812Q20.1172 0.0390625 19.4531 0Q18.8281 -0.0390625 18.2422 0.390625L8.984375 7.30469Q7.53906 8.4375 7.5 10.2734L11.9922 14.3359ZM11.25 15.3516L6.71875 11.25L11.25 15.3516L6.71875 11.25Q4.92188 11.3672 3.71094 12.5781Q2.53906 13.8281 2.5 15.625Q2.5 15.8594 2.53906 16.0938Q2.57812 16.6016 2.26562 17.0312Q1.95312 17.4609 1.44531 17.5L1.25 17.5Q0.703125 17.5 0.351562 17.8516Q0 18.2031 0 18.75Q0 19.2969 0.351562 19.6484Q0.703125 20 1.25 20L6.875 20Q8.75 19.9609 9.96094 18.7109Q11.2109 17.5 11.25 15.625Q11.25 15.5469 11.25 15.4688Q11.25 15.3906 11.25 15.3516Z"/>
+                <svg viewBox="0 0 22 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 0L0 7L11 14L22 7L11 0Z" fill="#39FF14"/>
+                    <path d="M0 21L11 28L22 21L11 14L0 21Z" fill="#39FF14"/>
                 </svg>
-                <span>王诗情</span>
+                <span>Shira Space</span>
             </a>
             <div class="nav-links">
-                <a href="index.html">首页</a>
-                <a href="#">作品</a>
-                <a href="#">关于我</a>
-                <button class="contact-btn">联系我</button>
+                <a href="index.html">全部作品</a>
+                <a href="index2.html">平面设计</a>
+                <a href="index3.html">三维动画</a>
+                <a href="index4.html">插画</a>
+                <a href="processing.html">交互设计</a>
+                <a href="IP design.html" class="active">IP设计</a>
+                <a href="3DmayaPicture.html">3Dmaya</a>
+                <button class="contact-btn">与我联系</button>
             </div>
         </div>
     </nav>
@@ -501,10 +492,14 @@
     <a href="index.html" class="back-to-top">返回首页</a>
 
     <!-- Scroll-to-Top Button -->
-    <a href="#" class="scroll-to-top-btn">↑</a>
+    <button id="scroll-to-top-btn" class="scroll-to-top-btn">↑</button>
+
+    <div class="pt-8 border-t border-gray-800 text-center text-gray-500">
+        <p>© 2025SHIQING. 保留所有权利。</p>
+    </div>
 
     <script>
-        const scrollToTopBtn = document.querySelector('.scroll-to-top-btn');
+        const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
 
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 200) { // Show button after scrolling down 200px
@@ -521,6 +516,62 @@
                 behavior: 'smooth'
             });
         });
+
+        // Mouse Trail Effect JavaScript
+        document.addEventListener('mousemove', function(e) {
+            let element = document.createElement('div');
+            element.className = 'mouse-trail-element';
+            document.body.appendChild(element);
+
+            // Set initial position and size
+            const size = Math.random() * 5 + 5; // Random size between 5px and 10px
+            element.style.width = size + 'px';
+            element.style.height = size + 'px';
+            element.style.left = e.clientX - size / 2 + 'px';
+            element.style.top = e.clientY - size / 2 + 'px';
+
+            // Animate it
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = `scale(1)`;
+            }, 10); // Small delay to allow initial opacity to be 0
+
+            // Fade out and remove
+            setTimeout(() => {
+                element.style.opacity = '0';
+                element.style.transform = `scale(0)`;
+                setTimeout(() => {
+                    element.remove();
+                }, 500); // Wait for transition to finish
+            }, 300); // How long the element stays visible
+        });
+    </script>
+
+    <script>
+      const mouseTrailContainer = document.getElementById('mouse-trail-container');
+
+      document.addEventListener('mousemove', function(e) {
+        const trailElement = document.createElement('div');
+        trailElement.className = 'mouse-trail-element';
+        
+        // Initial size and position
+        const size = Math.random() * 10 + 10; // Random size between 10 and 20
+        trailElement.style.width = size + 'px';
+        trailElement.style.height = size + 'px';
+        trailElement.style.left = (e.clientX - size / 2) + 'px';
+        trailElement.style.top = (e.clientY - size / 2) + 'px';
+        
+        mouseTrailContainer.appendChild(trailElement);
+
+        // Animate and remove the element
+        setTimeout(() => {
+          trailElement.style.transform = 'scale(0)';
+          trailElement.style.opacity = '0';
+          setTimeout(() => {
+            trailElement.remove();
+          }, 500); // Corresponds to the transition duration
+        }, 50); // Small delay before animation starts
+      });
     </script>
 </body>
-</html> 
+</html>

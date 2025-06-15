@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INKVISION | 平面设计作品集</title>
+  <title>王诗情 | 作品集</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
   
@@ -78,7 +78,7 @@
         grid-auto-flow: dense;
       }
       .scale-hover {
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out, visibility 0.5s ease-out;
       }
       .scale-hover:hover {
         transform: scale(1.03);
@@ -90,6 +90,15 @@
         outline: none;
         box-shadow: 0 0 0 3px rgba(125, 255, 21, 0.3);
         animation: breathe 2s infinite ease-in-out;
+      }
+      .mouse-trail-element {
+        position: absolute;
+        background-image: linear-gradient(to right, #7DFF15, #FF69B4); /* Trail color from green to pink */
+        border-radius: 50%;
+        opacity: 0.8;
+        transform: scale(1);
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        pointer-events: none;
       }
     }
 
@@ -104,7 +113,7 @@
       position: fixed; /* Fixed position */
       bottom: 20px; /* Place the button 20px from the bottom */
       right: 20px; /* Place the button 20px from the right */
-      z-index: 99; /* Make sure it's above other things */
+      z-index: 99; /* Make sure it\'s above other things */
       border: none; /* Remove borders */
       outline: none; /* Remove outline */
       background-color: var(--color-accent); /* Green background (using a hex code, replace with CSS variable if available) */
@@ -126,8 +135,9 @@
 </head>
 
 <body class="bg-dark text-light min-h-screen font-rounded">
+  <div id="mouse-trail-container" style="pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;"></div>
   <!-- 导航栏 -->
-  <header class="fixed w-full z-50 transition-all duration-500 ease-expo-out bg-gray-custom" id="navbar">
+  <header class="fixed w-full z-50 bg-dark/90 backdrop-blur-md shadow-lg py-3 transition-all duration-500 ease-expo-out" id="navbar">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <a href="#" class="text-2xl font-bold text-primary tracking-tight flex items-center space-x-2">
         <span class="fa fa-paint-brush transform -rotate-12"></span>
@@ -136,9 +146,9 @@
       
       <!-- 桌面导航 -->
       <nav class="hidden md:flex items-center space-x-8">
-        <a href="#home" class="text-light hover:text-primary transition-colors duration-300">首页</a>
-        <a href="#works" class="text-light hover:text-primary transition-colors duration-300">作品</a>
-        <a href="#about" class="text-light hover:text-primary transition-colors duration-300">关于我</a>
+        <a href="#home" class="text-light hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-white/10">首页</a>
+        <a href="#works" class="text-light hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-white/10">作品</a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 px-3 py-2 rounded-md hover:bg-white/10">关于我</a>
         <a href="#contact" class="bg-transparent rounded-full px-6 py-2 border border-primary text-primary hover:bg-primary hover:text-dark transition-all duration-500 ease-expo-out">
           与我联系
         </a>
@@ -151,11 +161,11 @@
     </div>
     
     <!-- 移动端导航菜单 -->
-    <div class="md:hidden bg-gray-custom absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 ease-expo-out invisible" id="mobile-menu">
+    <div class="md:hidden bg-dark/90 backdrop-blur-md shadow-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 ease-expo-out invisible" id="mobile-menu">
       <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-        <a href="#home" class="text-light hover:text-primary transition-colors duration-300 py-2">首页</a>
-        <a href="#works" class="text-light hover:text-primary transition-colors duration-300 py-2">作品</a>
-        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 py-2">关于我</a>
+        <a href="#home" class="text-light hover:text-primary transition-colors duration-300 py-2 px-3 rounded-md hover:bg-white/10">首页</a>
+        <a href="#works" class="text-light hover:text-primary transition-colors duration-300 py-2 px-3 rounded-md hover:bg-white/10">作品</a>
+        <a href="#about" class="text-light hover:text-primary transition-colors duration-300 py-2 px-3 rounded-md hover:bg-white/10">关于我</a>
         <a href="#contact" class="bg-transparent rounded-full px-6 py-2 border border-primary text-primary hover:bg-primary hover:text-dark transition-all duration-500 ease-expo-out text-center">
           与我联系
         </a>
@@ -195,36 +205,33 @@
       
       <!-- 分类筛选 -->
       <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button class="filter-btn active px-6 py-2 rounded-full bg-primary text-dark font-medium transition-all duration-300 ease-expo-out">
-          全部作品
-        </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="平面设计">
           平面设计
         </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="动态视觉设计">
           动态视觉设计
         </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="摄影摄像动画作业">
           摄影摄像动画作业
         </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="动画编程作品">
           动画编程作品
         </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="3D建模作品">
           3D建模作品
         </button>
-        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out">
+        <button class="filter-btn px-6 py-2 rounded-full bg-gray-custom text-light font-medium hover:bg-primary/10 transition-all duration-300 ease-expo-out" data-filter="IP设计及衍生品">
           IP设计及衍生品
         </button>
       </div>
       
       <!-- 作品网格 -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="works-grid">
         <!-- 作品项 1 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
           <div class="image-container">
             <a href="index2.html" class="block">
-              <img src="image/2.2.png" alt="作品图片" class="w-full h-80 object-cover">
+              <img src="image/q.png" alt="作品图片" class="w-full h-80 object-cover">
             </a>
           </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
@@ -234,11 +241,83 @@
             </a>
           </div>
         </div>
-        <!-- 作品项 2 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
-          <a href="index3.html">
-            <img src="image/节奏.png" alt="动态视觉设计" class="w-full h-96 object-cover">
-          </a>
+        <!-- 作品项 2 (平面设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
+          <div class="image-container">
+            <a href="index2.html" class="block">
+              <img src="image/w.png" alt="平面设计作品 2" class="w-full h-80 object-cover">
+            </a>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
+            <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+              查看详细 <span class="fa fa-arrow-right ml-2"></span>
+            </a>
+          </div>
+        </div>
+        <!-- 作品项 3 (平面设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
+          <div class="image-container">
+            <a href="index2.html" class="block">
+              <img src="image/e.png" alt="平面设计作品 3" class="w-full h-80 object-cover">
+            </a>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
+            <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+              查看详细 <span class="fa fa-arrow-right ml-2"></span>
+            </a>
+          </div>
+        </div>
+        <!-- 作品项 4 (平面设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
+          <div class="image-container">
+            <a href="index2.html" class="block">
+              <img src="image/icon设计.png" alt="平面设计作品 4" class="w-full h-80 object-cover">
+            </a>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
+            <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+              查看详细 <span class="fa fa-arrow-right ml-2"></span>
+            </a>
+          </div>
+        </div>
+        <!-- 作品项 5 (平面设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
+          <div class="image-container">
+            <a href="index2.html" class="block">
+              <img src="image/低保真.png" alt="平面设计作品 5" class="w-full h-80 object-cover">
+            </a>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
+            <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+              查看详细 <span class="fa fa-arrow-right ml-2"></span>
+            </a>
+          </div>
+        </div>
+        <!-- 作品项 6 (平面设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="平面设计">
+          <div class="image-container">
+            <a href="index2.html" class="block">
+              <img src="image/界面设计.png" alt="平面设计作品 6" class="w-full h-80 object-cover">
+            </a>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
+            <h3 class="text-xl font-bold text-white mb-2">平面设计</h3>
+            <a href="index2.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
+              查看详细 <span class="fa fa-arrow-right ml-2"></span>
+            </a>
+          </div>
+        </div>
+        <!-- 作品项 (动态视觉设计) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="动态视觉设计">
+          <div class="image-container">
+            <a href="index3.html" class="block">
+              <img src="image/节奏.png" alt="动态视觉设计作品" class="w-full h-80 object-cover">
+            </a>
+          </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">动态视觉设计</h3>
             <a href="index3.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
@@ -246,11 +325,13 @@
             </a>
           </div>
         </div>
-        <!-- 作品项 3 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
-          <a href="index4.html">
-            <img src="image/摄影.png" alt="摄影摄像动画作品" class="w-full h-80 object-cover">
-          </a>
+        <!-- 作品项 (摄影摄像动画作业) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="摄影摄像动画作业">
+          <div class="image-container">
+            <a href="index4.html" class="block">
+              <img src="image/摄影4.png" alt="摄影摄像动画作业作品" class="w-full h-80 object-cover">
+            </a>
+          </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">摄影摄像动画作业</h3>
             <a href="index4.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
@@ -258,11 +339,13 @@
             </a>
           </div>
         </div>
-        <!-- 作品项 4 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
-          <a href="processing.html">
-            <img src="image/编程作业1.png" alt="动画编程作品" class="w-full h-96 object-cover">
-          </a>
+        <!-- 作品项 (动画编程作品) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="动画编程作品">
+          <div class="image-container">
+            <a href="processing.html" class="block">
+              <img src="image/编程作业1.png" alt="动画编程作品" class="w-full h-80 object-cover">
+            </a>
+          </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">动画编程作品</h3>
             <a href="processing.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
@@ -270,11 +353,13 @@
             </a>
           </div>
         </div>
-        <!-- 作品项 5 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
-          <a href="3DmayaPicture.html">
-            <img src="image/建模1.png" alt="3D建模作品" class="w-full h-80 object-cover">
-          </a>
+        <!-- 作品项 (3D建模作品) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="3D建模作品">
+          <div class="image-container">
+            <a href="3DmayaPicture.html" class="block">
+              <img src="image/表渲染图.png" alt="3D建模作品" class="w-full h-80 object-cover">
+            </a>
+          </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">3D建模作品</h3>
             <a href="3DmayaPicture.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
@@ -282,11 +367,13 @@
             </a>
           </div>
         </div>
-        <!-- 作品项 6 -->
-        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out">
-          <a href="IP design.html">
-            <img src="image/海报3.png" alt="IP设计及衍生品" class="w-full h-96 object-cover">
-          </a>
+        <!-- 作品项 (IP设计及衍生品) -->
+        <div class="work-item group relative rounded-xl overflow-hidden scale-hover card-shadow hover:card-shadow-hover transition-all duration-500 ease-expo-out" data-category="IP设计及衍生品">
+          <div class="image-container">
+            <a href="IP design.html" class="block">
+              <img src="image/海报3.png" alt="IP设计及衍生品作品" class="w-full h-80 object-cover">
+            </a>
+          </div>
           <div class="absolute inset-x-0 bottom-0 h-28 bg-dark/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-expo-out">
             <h3 class="text-xl font-bold text-white mb-2">IP设计及衍生品</h3>
             <a href="IP design.html" class="text-primary hover:text-secondary transition-colors duration-300 inline-flex items-center font-semibold">
@@ -304,19 +391,13 @@
     </div>
   </section>
 
-  <!-- 关于我 -->
+  <!-- 服务介绍区 -->
   <section id="about" class="py-24 bg-dark">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
         <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">关于<span class="text-primary">我</span></h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-        <!-- 左侧圆形照片区 -->
-        <div class="flex justify-center items-center h-full">
-          <div class="w-80 h-80 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center border-4" style="border-color: #7DFF15;">
-            <img src="image/1.jpg" alt="个人照片" class="object-cover w-full h-full" />
-          </div>
-        </div>
         <!-- 右侧个人信息卡片，占2/3 -->
         <div class="bg-gray-custom rounded-2xl p-8 transition-all duration-500 ease-expo-out group col-span-2">
           <h3 class="text-3xl font-extrabold mb-8 text-primary">个人信息</h3>
@@ -338,6 +419,33 @@
               <div class="text-gray-400">善于沟通，注重团队协作，具有强烈的责任心和创新精神，能够快速理解并满足客户需求。</div>
             </div>
           </div>
+        </div>
+        <!-- 左侧圆形照片区 -->
+        <div class="flex justify-center items-center h-full order-first lg:order-last">
+          <div class="w-80 h-80 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center border-4" style="border-color: #7DFF15;">
+            <img src="image/1.jpg" alt="个人照片" class="object-cover w-full h-full" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 自我介绍 -->
+  <section id="self-introduction" class="py-24 bg-dark text-light">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4"><span class="text-primary">自我</span>介绍</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="relative">
+          <!-- 确保视频路径正确 -->
+          <video src="video/自我介绍.mp4" controls class="rounded-xl shadow-lg w-full"></video>
+        </div>
+        <div class="text-center md:text-left">
+          <p class="text-gray-300 leading-relaxed text-lg">
+            我是一名热爱生活与创作的全能型选手。镜头前，我用剪辑魔法将平凡日常变成精彩故事，擅长通过节奏把控与特效运用，赋予素材独特灵魂。镜头外，美食是我的灵感源泉，味蕾的每一次惊喜都可能化作创作火花。闲暇时，我背上相机踏上旅途，用脚步丈量世界，记录不同地域的风土人情；运动场上也不乏我的身影，篮球、骑行，在挥洒汗水中保持活力与敏锐。生活的多元体验，让我在创作中始终充满热情与灵感。
+          </p>
         </div>
       </div>
     </div>
@@ -460,7 +568,7 @@
             <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors duration-300">首页</a></li>
             <li><a href="#works" class="text-gray-400 hover:text-primary transition-colors duration-300">作品</a></li>
             <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300">关于我</a></li>
-            <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">关于我</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">联系我</a></li>
           </ul>
         </div>
         
@@ -496,7 +604,7 @@
       </div>
       
       <div class="pt-8 border-t border-gray-800 text-center text-gray-500">
-        <p>&copy; 2025 INKVISION. 保留所有权利。</p>
+        <p>&copy; 2025 SHIQING.保留所有权利。</p>
       </div>
     </div>
   </footer>
@@ -513,22 +621,10 @@
     const backToTop = document.getElementById('back-to-top');
     
     window.addEventListener('scroll', function() {
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-dark/90', 'backdrop-blur-md', 'shadow-lg');
-        navbar.classList.remove('py-4');
-        navbar.classList.add('py-3');
-        
-        if (window.scrollY > 500) {
-          backToTop.classList.remove('opacity-0', 'invisible');
-          backToTop.classList.add('opacity-100', 'visible');
-        } else {
-          backToTop.classList.add('opacity-0', 'invisible');
-          backToTop.classList.remove('opacity-100', 'visible');
-        }
+      if (window.scrollY > 500) {
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
       } else {
-        navbar.classList.remove('bg-dark/90', 'backdrop-blur-md', 'shadow-lg');
-        navbar.classList.remove('py-3');
-        navbar.classList.add('py-4');
         backToTop.classList.add('opacity-0', 'invisible');
         backToTop.classList.remove('opacity-100', 'visible');
       }
@@ -583,51 +679,117 @@
       });
     });
     
-    // 作品筛选功能
+    // 筛选按钮逻辑
     const filterButtons = document.querySelectorAll('.filter-btn');
-    
+    const worksGrid = document.getElementById('works-grid');
+    let activeFilter = null;
+    let clickTimer = null;
+
+    // 定义初始显示状态的函数
+    function applyInitialDisplayState() {
+        const workItems = document.querySelectorAll('.work-item');
+        workItems.forEach(item => {
+            const category = item.dataset.category;
+            // 隐藏所有平面设计作品
+            if (category === '平面设计') {
+                item.style.display = 'none';
+            } else {
+                // 显示其他类别的所有作品
+                item.style.display = '';
+            }
+        });
+
+        // 单独显示平面设计2 (image/w.png)
+        const flatDesign2 = document.querySelector('.work-item[data-category="平面设计"] img[src="image/w.png"]');
+        if (flatDesign2) {
+            flatDesign2.closest('.work-item').style.display = '';
+        }
+
+        // 激活平面设计按钮（如果存在）
+        const flatDesignButton = document.querySelector('.filter-btn[data-filter="平面设计"]');
+        if (flatDesignButton) {
+            filterButtons.forEach(btn => btn.classList.remove('bg-primary', 'text-dark'));
+            flatDesignButton.classList.add('bg-primary', 'text-dark');
+            activeFilter = '平面设计'; // 更新活动筛选器
+        }
+    }
+
     filterButtons.forEach(button => {
       button.addEventListener('click', function() {
-        // 移除所有按钮的活动状态
-        filterButtons.forEach(btn => {
-          btn.classList.remove('active', 'bg-primary', 'text-dark');
-          btn.classList.add('bg-gray-custom', 'text-light');
-        });
-        
-        // 添加当前按钮的活动状态
-        this.classList.add('active', 'bg-primary', 'text-dark');
-        this.classList.remove('bg-gray-custom', 'text-light');
-        
-        // 这里可以添加实际的筛选逻辑
-        const category = this.textContent.trim();
-        console.log('筛选类别:', category);
-        // 实际项目中，这里可以根据类别筛选作品
+        const currentClickedFilter = this.dataset.filter;
+
+        // Immediate visual update: Highlight the clicked button
+        filterButtons.forEach(btn => btn.classList.remove('bg-primary', 'text-dark'));
+        this.classList.add('bg-primary', 'text-dark');
+
+        if (clickTimer) {
+          // DOUBLE CLICK detected: Reset to initial state
+          clearTimeout(clickTimer);
+          clickTimer = null; // Clear the timer
+          applyInitialDisplayState(); // This also sets activeFilter to '平面设计'
+        } else {
+          // FIRST CLICK of a potential single or double click sequence
+          // Immediately apply the filter based on the clicked button
+          document.querySelectorAll('.work-item').forEach(item => {
+            if (item.dataset.category === currentClickedFilter) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          // Special handling for "平面设计"
+          if (currentClickedFilter === '平面设计') {
+            const flatDesignItems = Array.from(document.querySelectorAll('.work-item[data-category="平面设计"]'));
+            flatDesignItems.forEach((item, index) => {
+              if (index < 6) {
+                item.style.display = '';
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          }
+
+          // Update activeFilter immediately since the filter is applied
+          activeFilter = currentClickedFilter;
+
+          // Set a timer for potential double click
+          clickTimer = setTimeout(() => {
+            clickTimer = null; // This means it was a single click, filter remains
+          }, 300); // 300ms window for double click
+        }
       });
     });
+
+    // 页面加载时应用初始显示状态
+    applyInitialDisplayState();
   </script>
 
-  <!-- Scroll-to-Top Button -->
-  <a href="#" class="scroll-to-top-btn">↑</a>
-
   <script>
-    const scrollToTopBtn = document.querySelector('.scroll-to-top-btn');
+    const mouseTrailContainer = document.getElementById('mouse-trail-container');
 
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 200) { // Show button after scrolling down 200px
-        scrollToTopBtn.style.display = 'flex';
-      } else {
-        scrollToTopBtn.style.display = 'none';
-      }
-    });
+    document.addEventListener('mousemove', function(e) {
+      const trailElement = document.createElement('div');
+      trailElement.className = 'mouse-trail-element';
+      
+      // Initial size and position
+      const size = Math.random() * 10 + 10; // Random size between 10 and 20
+      trailElement.style.width = size + 'px';
+      trailElement.style.height = size + 'px';
+      trailElement.style.left = (e.clientX - size / 2) + 'px';
+      trailElement.style.top = (e.clientY - size / 2) + 'px';
+      
+      mouseTrailContainer.appendChild(trailElement);
 
-    scrollToTopBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      // Animate and remove the element
+      setTimeout(() => {
+        trailElement.style.transform = 'scale(0)';
+        trailElement.style.opacity = '0';
+        setTimeout(() => {
+          trailElement.remove();
+        }, 500); // Corresponds to the transition duration
+      }, 50); // Small delay before animation starts
     });
   </script>
 </body>
-</html>
-    
+</html> 

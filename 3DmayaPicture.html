@@ -28,6 +28,17 @@
             min-height: 100vh;
         }
 
+        /* Mouse Trail styles */
+        .mouse-trail-element {
+            position: absolute;
+            background-color: #39FF14; /* Accent color */
+            border-radius: 50%;
+            opacity: 0.7;
+            pointer-events: none;
+            transform: scale(1);
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
         nav {
             background-color: var(--color-nav);
             height: 88px;
@@ -340,7 +351,9 @@
 
     </style>
 </head>
-<body>
+<body style="background-color: var(--color-background); font-family: 'Roboto', 'Source Han Sans', sans-serif; color: var(--color-text); min-height: 100vh;">
+    <div id="mouse-trail-container" style="pointer-events: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;"></div>
+
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -353,7 +366,7 @@
                 <a href="index.html">首页</a>
                 <a href="#" class="active">作品</a>
                 <a href="#">关于我</a>
-                <button class="contact-btn">联系我</button>
+                <button class="contact-btn">与我联系</button>
             </div>
         </div>
     </nav>
@@ -426,7 +439,7 @@
                     您的浏览器不支持视频播放。
                 </video>
             </div>
-            <p class="video-caption">AI衍生动态演示</p>
+            <p class="video-caption">AI动态衍生</p>
             <!-- Move Back to Top button here -->
             <a href="index.html" class="back-to-top">返回首页</a>
         </div>
@@ -436,20 +449,68 @@
     <a href="index.html" class="scroll-to-top-btn">↑</a>
 
     <script>
-        const scrollToTopBtn = document.querySelector('.scroll-to-top-btn');
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) { // Only handle internal links for smooth scroll
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
 
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 200) { // Show button after scrolling down 200px
-                scrollToTopBtn.style.display = 'flex';
+        // Toggle mobile menu visibility (if you add a mobile menu button)
+        // Example:
+        // document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+        //     document.querySelector('.nav-links').classList.toggle('active');
+        // });
+
+        // Scroll-to-Top Button JavaScript
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
             } else {
-                scrollToTopBtn.style.display = 'none';
+                scrollToTopBtn.style.display = "none";
             }
-        });
+        }
 
-        scrollToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = 'index.html'; // 修改为跳转到 index.html
+        scrollToTopBtn.addEventListener("click", function() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         });
+    </script>
+    <script>
+      const mouseTrailContainer = document.getElementById('mouse-trail-container');
+
+      document.addEventListener('mousemove', function(e) {
+        const trailElement = document.createElement('div');
+        trailElement.className = 'mouse-trail-element';
+        
+        // Initial size and position
+        const size = Math.random() * 10 + 10; // Random size between 10 and 20
+        trailElement.style.width = size + 'px';
+        trailElement.style.height = size + 'px';
+        trailElement.style.left = (e.clientX - size / 2) + 'px';
+        trailElement.style.top = (e.clientY - size / 2) + 'px';
+        
+        mouseTrailContainer.appendChild(trailElement);
+
+        // Animate and remove the element
+        setTimeout(() => {
+          trailElement.style.transform = 'scale(0)';
+          trailElement.style.opacity = '0';
+          setTimeout(() => {
+            trailElement.remove();
+          }, 500); // Corresponds to the transition duration
+        }, 50); // Small delay before animation starts
+      });
     </script>
 </body>
 </html> 
